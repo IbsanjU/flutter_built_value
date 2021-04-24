@@ -34,6 +34,100 @@ final BuiltSet<VehicleType> _$values =
   _$plane,
 ]);
 
+Serializer<BuiltVehicle> _$builtVehicleSerializer =
+    new _$BuiltVehicleSerializer();
+Serializer<VehicleType> _$vehicleTypeSerializer = new _$VehicleTypeSerializer();
+
+class _$BuiltVehicleSerializer implements StructuredSerializer<BuiltVehicle> {
+  @override
+  final Iterable<Type> types = const [BuiltVehicle, _$BuiltVehicle];
+  @override
+  final String wireName = 'BuiltVehicle';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, BuiltVehicle object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'type',
+      serializers.serialize(object.type,
+          specifiedType: const FullType(VehicleType)),
+      'brand',
+      serializers.serialize(object.brand,
+          specifiedType: const FullType(String)),
+      'price',
+      serializers.serialize(object.price,
+          specifiedType: const FullType(double)),
+      'passengerNames',
+      serializers.serialize(object.passengerNames,
+          specifiedType:
+              const FullType(BuiltList, const [const FullType(String)])),
+    ];
+    if (object.someNullableValue != null) {
+      result
+        ..add('someNullableValue')
+        ..add(serializers.serialize(object.someNullableValue,
+            specifiedType: const FullType(bool)));
+    }
+    return result;
+  }
+
+  @override
+  BuiltVehicle deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new BuiltVehicleBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'type':
+          result.type = serializers.deserialize(value,
+              specifiedType: const FullType(VehicleType)) as VehicleType;
+          break;
+        case 'brand':
+          result.brand = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'price':
+          result.price = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
+          break;
+        case 'someNullableValue':
+          result.someNullableValue = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
+          break;
+        case 'passengerNames':
+          result.passengerNames.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(BuiltList, const [const FullType(String)]))
+              as BuiltList<Object>);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$VehicleTypeSerializer implements PrimitiveSerializer<VehicleType> {
+  @override
+  final Iterable<Type> types = const <Type>[VehicleType];
+  @override
+  final String wireName = 'VehicleType';
+
+  @override
+  Object serialize(Serializers serializers, VehicleType object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      object.name;
+
+  @override
+  VehicleType deserialize(Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      VehicleType.valueOf(serialized as String);
+}
+
 class _$BuiltVehicle extends BuiltVehicle {
   @override
   final VehicleType type;

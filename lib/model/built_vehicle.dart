@@ -9,6 +9,7 @@ import 'dart:convert';
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
+import 'package:flutter_built_value/model/serializers.dart';
 
 part 'built_vehicle.g.dart'; // auto generated file by built_value
 
@@ -31,6 +32,22 @@ abstract class BuiltVehicle
   BuiltVehicle._();
 
   factory BuiltVehicle([updates(BuiltVehicleBuilder b)]) = _$BuiltVehicle;
+
+  // ---------------------------------------------------------
+  //
+  // Helper class json
+  String toJson() {
+    return json
+        .encode(serializers.serializeWith(BuiltVehicle.serializer, this));
+  }
+
+  static BuiltVehicle fromJson(String jsonString) {
+    return serializers.deserializeWith(
+        BuiltVehicle.serializer, json.decode(jsonString));
+  }
+
+  // #Static Setialization
+  static Serializer<BuiltVehicle> get serializer => _$builtVehicleSerializer;
 }
 
 // ENUM class for Vehicle Type, which extends EnumClass
@@ -51,4 +68,10 @@ class VehicleType extends EnumClass {
   static BuiltSet<VehicleType> get values => _$values;
   // #It should return value of vehicelType name
   static VehicleType valueOf(String name) => _$valueOf(name);
+
+  // #To make VehicleType Serialize
+  static Serializer<VehicleType> get serializer => _$vehicleTypeSerializer;
+  // #To make this work we need to add one more file
+  // serializers.dart
+
 }
