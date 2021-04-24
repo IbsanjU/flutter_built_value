@@ -1,6 +1,15 @@
 # flutter_built_value
 
-A new Flutter project.
+A new Flutter project which uses Built_value package
+version : 7.0.1
+
+>dependencies:
+>- built_value: ^7.0.1
+
+>dev_dependencies:
+>  - build_runner: ^1.0.0
+>  - built_value_generator: ^7.0.1
+---
 
 ## Getting Started
 
