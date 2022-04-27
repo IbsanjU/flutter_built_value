@@ -14,8 +14,7 @@ import 'package:flutter_built_value/model/serializers.dart';
 part 'built_vehicle.g.dart'; // auto generated file by built_value
 
 // #This is a model class
-abstract class BuiltVehicle
-    implements Built<BuiltVehicle, BuiltVehicleBuilder> {
+abstract class BuiltVehicle implements Built<BuiltVehicle, BuiltVehicleBuilder> {
   // String get type;
   VehicleType get type;
   String get brand;
@@ -36,15 +35,9 @@ abstract class BuiltVehicle
   // ---------------------------------------------------------
   //
   // Helper class json
-  String toJson() {
-    return json
-        .encode(serializers.serializeWith(BuiltVehicle.serializer, this));
-  }
+  String toJson() => json.encode(serializers.serializeWith(BuiltVehicle.serializer, this));
 
-  static BuiltVehicle fromJson(String jsonString) {
-    return serializers.deserializeWith(
-        BuiltVehicle.serializer, json.decode(jsonString));
-  }
+  static BuiltVehicle fromJson(String jsonString) => serializers.deserializeWith(BuiltVehicle.serializer, json.decode(jsonString));
 
   // #Static Setialization
   static Serializer<BuiltVehicle> get serializer => _$builtVehicleSerializer;

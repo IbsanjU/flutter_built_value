@@ -62,11 +62,13 @@ class _$BuiltVehicleSerializer implements StructuredSerializer<BuiltVehicle> {
           specifiedType:
               const FullType(BuiltList, const [const FullType(String)])),
     ];
-    if (object.someNullableValue != null) {
+    Object value;
+    value = object.someNullableValue;
+    if (value != null) {
       result
         ..add('someNullableValue')
-        ..add(serializers.serialize(object.someNullableValue,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
     return result;
   }
@@ -80,7 +82,7 @@ class _$BuiltVehicleSerializer implements StructuredSerializer<BuiltVehicle> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'type':
           result.type = serializers.deserialize(value,
@@ -150,18 +152,11 @@ class _$BuiltVehicle extends BuiltVehicle {
       this.someNullableValue,
       this.passengerNames})
       : super._() {
-    if (type == null) {
-      throw new BuiltValueNullFieldError('BuiltVehicle', 'type');
-    }
-    if (brand == null) {
-      throw new BuiltValueNullFieldError('BuiltVehicle', 'brand');
-    }
-    if (price == null) {
-      throw new BuiltValueNullFieldError('BuiltVehicle', 'price');
-    }
-    if (passengerNames == null) {
-      throw new BuiltValueNullFieldError('BuiltVehicle', 'passengerNames');
-    }
+    BuiltValueNullFieldError.checkNotNull(type, 'BuiltVehicle', 'type');
+    BuiltValueNullFieldError.checkNotNull(brand, 'BuiltVehicle', 'brand');
+    BuiltValueNullFieldError.checkNotNull(price, 'BuiltVehicle', 'price');
+    BuiltValueNullFieldError.checkNotNull(
+        passengerNames, 'BuiltVehicle', 'passengerNames');
   }
 
   @override
@@ -232,12 +227,13 @@ class BuiltVehicleBuilder
   BuiltVehicleBuilder();
 
   BuiltVehicleBuilder get _$this {
-    if (_$v != null) {
-      _type = _$v.type;
-      _brand = _$v.brand;
-      _price = _$v.price;
-      _someNullableValue = _$v.someNullableValue;
-      _passengerNames = _$v.passengerNames?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _type = $v.type;
+      _brand = $v.brand;
+      _price = $v.price;
+      _someNullableValue = $v.someNullableValue;
+      _passengerNames = $v.passengerNames.toBuilder();
       _$v = null;
     }
     return this;
@@ -245,9 +241,7 @@ class BuiltVehicleBuilder
 
   @override
   void replace(BuiltVehicle other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$BuiltVehicle;
   }
 
@@ -262,9 +256,12 @@ class BuiltVehicleBuilder
     try {
       _$result = _$v ??
           new _$BuiltVehicle._(
-              type: type,
-              brand: brand,
-              price: price,
+              type: BuiltValueNullFieldError.checkNotNull(
+                  type, 'BuiltVehicle', 'type'),
+              brand: BuiltValueNullFieldError.checkNotNull(
+                  brand, 'BuiltVehicle', 'brand'),
+              price: BuiltValueNullFieldError.checkNotNull(
+                  price, 'BuiltVehicle', 'price'),
               someNullableValue: someNullableValue,
               passengerNames: passengerNames.build());
     } catch (_) {
@@ -283,4 +280,4 @@ class BuiltVehicleBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
